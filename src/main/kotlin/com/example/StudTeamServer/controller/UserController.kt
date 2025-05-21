@@ -2,6 +2,7 @@ package com.example.StudTeamServer.controller
 
 
 import com.example.StudTeamServer.dto.AuthenticationRequest
+import com.example.StudTeamServer.dto.UserProfileDTO
 import com.example.StudTeamServer.entity.User
 import com.example.StudTeamServer.service.UserService
 import org.springframework.http.ResponseEntity
@@ -32,6 +33,12 @@ class UserController(private val userService: UserService) {
         val user = userService.authenticate(auth.email, auth.password)
         return ResponseEntity.ok(user)
     }
+
+    @GetMapping("/profile/{id}")
+    fun getUserProfile(@PathVariable id: Long): UserProfileDTO {
+        return userService.getUserProfile(id)
+    }
+
 
 }
 

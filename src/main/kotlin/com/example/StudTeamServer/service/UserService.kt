@@ -1,6 +1,7 @@
 package com.example.StudTeamServer.service
 
 
+import com.example.StudTeamServer.dto.UserProfileDTO
 import com.example.StudTeamServer.entity.User
 import com.example.StudTeamServer.repository.UserRepository
 import org.springframework.stereotype.Service
@@ -28,6 +29,20 @@ class UserService(private val userRepository: UserRepository) {
         if (user.password != password) throw RuntimeException("Неверный пароль")
         return user
     }
+
+
+    fun getUserProfile(id: Long): UserProfileDTO {
+        val user = userRepository.findById(id)
+            .orElseThrow { RuntimeException("Пользователь не найден") }
+
+        return UserProfileDTO(
+            id = user.id,
+            name = user.name,
+            email = user.email
+        )
+    }
+
+
 
 
 }
